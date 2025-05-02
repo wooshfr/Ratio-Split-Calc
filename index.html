@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ratio Split Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #fff;
+    }
+
+    .container.dark-mode {
+      background-color: #1c1c1c;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    }
+
+    button.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    button.dark-mode:hover {
+      background-color: #444;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Ratio Split Calculator</h1>
+
+    <label for="total">Total number:</label>
+    <input type="number" id="total" placeholder="Enter total">
+
+    <label for="ratio">Enter ratio (e.g., 4:5):</label>
+    <input type="text" id="ratio" placeholder="Enter ratio">
+
+    <button onclick="calculateSplit()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateSplit() {
+      const total = parseFloat(document.getElementById('total').value);
+      const ratio = document.getElementById('ratio').value.split(':').map(Number);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(total) || total <= 0 || ratio.length < 2 || ratio.some(isNaN)) {
+        resultDiv.textContent = 'Please enter valid total and ratio.';
+        return;
+      }
+
+      const sum = ratio.reduce((a, b) => a + b, 0);
+      const splits = ratio.map(part => Math.round(part / sum * total));
+
+      resultDiv.textContent = `Result: ${splits.join(' : ')}`;
+    }
+  </script>
+
+</body>
+</html>
